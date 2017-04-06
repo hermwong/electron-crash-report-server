@@ -10,6 +10,7 @@ const Handlebars = require('handlebars')
 const Hapi = require('hapi')
 const Vision = require('vision')
 const db = require('./db.js')
+const analyticsRequest = require('request')
 
 const port = process.env.PORT
 const server = new Hapi.Server()
@@ -117,20 +118,51 @@ server.register([Basic, Vision], err => {
     path: '/',
     handler: (request, reply) => {
       if (request.payload && request.payload.prod === 'Electron') {
-        const payload = Object.assign({}, request.payload)
-        const file = payload.upload_file_minidump
 
-        delete payload.upload_file_minidump
+        //var analyticsRequest = require('request');
+
+        var analyticsJSON = {};
+        analyticsJSON.version = request.payload.version;
+        analyticsJSON.host = request.payload.host;
+        analyticsJSON.short_message = request.payload.short_message;
+        analyticsJSON._userID = request.payload._userID;
+        analyticsJSON._platform = request.payload._platform;
+        analyticsJSON._appVersion = request.payload._appVersion;
+        analyticsJSON._env = parseInt(request.payload._env);
+        analyticsJSON._guid = request.payload.guid;
+        analyticsJSON._prod = request.payload.prod;
+        analyticsJSON._electronVersion = request.payload.ver;
+        analyticsJSON._processType = request.payload.process_type;
+        analyticsJSON.ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+
+        const payload = Object.assign({}, analyticsJSON)
+        //const dumpFilePayload = Object.assign({}, request.payload)
+        //const file = dumpFilePayload.upload_file_minidump
+
+        //delete dumpFilePayload.upload_file_minidump
 
         db.reports.saveDoc(payload, (err, report) => {
           if (err) throw err
 
-          db.dumps.insert({file, report_id: report.id}, (err, dump) => {
-            if (err) throw err
+          //db.dumps.insert({file, report_id: report.id}, (err, dump) => {
+            //if (err) throw err
 
             reply()
-          })
+          //})
         })
+
+        analyticsRequest.post({
+            url: 'https://metrics.phonegap.com/gelfproxypass',
+            method: 'POST',
+            form: JSON.stringify(payload)
+        }, function(err, res, body) {
+            if (err) {
+                console.log('*** post error: ' + err);
+            } else {
+                console.log('*** post success: ' + body);
+            }
+        });
+
       } else {
         const error = Boom.badRequest()
 
