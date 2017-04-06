@@ -133,7 +133,7 @@ server.register([Basic, Vision], err => {
         analyticsJSON._prod = request.payload.prod;
         analyticsJSON._electronVersion = request.payload.ver;
         analyticsJSON._processType = request.payload.process_type;
-        analyticsJSON._nodeVersion = request.payload.nodeVersion;
+        analyticsJSON._nodeVersion = request.payload._nodeVersion;
         analyticsJSON._session = request.payload._session;
         analyticsJSON.ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
 
