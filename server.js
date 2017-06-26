@@ -143,15 +143,15 @@ server.register([Basic, Vision], err => {
 
         //delete dumpFilePayload.upload_file_minidump
 
-        db.reports.saveDoc(payload, (err, report) => {
-          if (err) throw err
+        //db.reports.saveDoc(payload, (err, report) => {
+        //  if (err) throw err
 
           //db.dumps.insert({file, report_id: report.id}, (err, dump) => {
             //if (err) throw err
 
             reply()
           //})
-        })
+        //})
 
         analyticsRequest.post({
             url: 'https://metrics.phonegap.com/gelfproxypass',
