@@ -46,7 +46,7 @@ server.register([Basic, Vision], err => {
       auth: 'simple',
       handler: (request, reply) => {
         
-        /*
+        
         const sql = 'SELECT * FROM reports ORDER BY created_at DESC'
         db.run(sql, (err, reports) => {
           if (err) throw err
@@ -55,13 +55,17 @@ server.register([Basic, Vision], err => {
             isHttpOnly: false,
             isSecure: process.env.NODE_ENV === 'production'
           }
-          */
-
-          reply('ok');
+          
+    
+          reply
+            .view('index', {reports, title: 'crash reports'})
+            .state('authorization', auth, opts)
         })
       }
     }
   })
+
+
 
   /*
   
