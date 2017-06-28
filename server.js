@@ -9,7 +9,7 @@ const Boom = require('boom')
 const Handlebars = require('handlebars')
 const Hapi = require('hapi')
 const Vision = require('vision')
-const db = require('./db.js')
+//const db = require('./db.js')
 const analyticsRequest = require('request')
 
 const port = process.env.PORT
@@ -45,6 +45,8 @@ server.register([Basic, Vision], err => {
     config: {
       auth: 'simple',
       handler: (request, reply) => {
+        
+        /*
         const sql = 'SELECT * FROM reports ORDER BY created_at DESC'
         db.run(sql, (err, reports) => {
           if (err) throw err
@@ -53,14 +55,18 @@ server.register([Basic, Vision], err => {
             isHttpOnly: false,
             isSecure: process.env.NODE_ENV === 'production'
           }
+          */
+        
           reply
-            .view('index', {reports, title: 'crash reports'})
+            .view('index', {/*reports,*/ title: 'crash reports'})
             .state('authorization', auth, opts)
         })
       }
     }
   })
 
+  /*
+  
   server.route({
     method: 'GET',
     path: '/reports/{id}',
@@ -112,6 +118,8 @@ server.register([Basic, Vision], err => {
       }
     }
   })
+  
+  */
 
   server.route({
     method: 'POST',
