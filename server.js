@@ -9,7 +9,7 @@ const Boom = require('boom')
 const Handlebars = require('handlebars')
 const Hapi = require('hapi')
 const Vision = require('vision')
-//const db = require('./db.js')
+const db = require('./db.js')
 const analyticsRequest = require('request')
 
 const port = process.env.PORT
