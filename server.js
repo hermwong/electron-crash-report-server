@@ -56,12 +56,8 @@ server.register([Basic, Vision], err => {
             isSecure: process.env.NODE_ENV === 'production'
           }
           */
-        
-          var reports = 'crash report server';
-        
-          reply
-            .view('index', {reports, title: 'crash reports'})
-            .state('authorization', auth, opts)
+
+          reply('ok');
         })
       }
     }
