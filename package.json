@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "boom": "4.2.0",
-    "handlebars": "4.0.6",
     "hapi": "16.0.1",
     "hapi-auth-basic": "4.2.0",
     "massive": "2.5.0",
