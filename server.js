@@ -57,8 +57,10 @@ server.register([Basic, Vision], err => {
           }
           */
         
+          var reports = 'crash report server';
+        
           reply
-            .view('index', {title: 'crash reports'})
+            .view('index', {reports, title: 'crash reports'})
             .state('authorization', auth, opts)
         })
       }
