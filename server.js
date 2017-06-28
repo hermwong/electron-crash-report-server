@@ -60,7 +60,7 @@ server.register([Basic, Vision], err => {
           reply();
             //.view('index', {reports, title: 'crash reports'})
             //.state('authorization', auth, opts)
-        })
+        //})
       }
     }
   })
