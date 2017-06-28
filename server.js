@@ -6,10 +6,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 const Basic = require('hapi-auth-basic')
 const Boom = require('boom')
-const Handlebars = require('handlebars')
+//const Handlebars = require('handlebars')
 const Hapi = require('hapi')
 const Vision = require('vision')
-const db = require('./db.js')
+//const db = require('./db.js')
 const analyticsRequest = require('request')
 
 const port = process.env.PORT
@@ -31,14 +31,14 @@ server.register([Basic, Vision], err => {
       }
     }
   })
-
+/*
   server.views({
     engines: {html: Handlebars},
     relativeTo: __dirname,
     layout: true,
     path: 'views'
   })
-
+*/
   server.route({
     method: 'GET',
     path: '/',
