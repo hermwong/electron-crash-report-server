@@ -57,7 +57,7 @@ server.register([Basic, Vision], err => {
           }
           */
     
-          reply();
+          reply('hello world');
             //.view('index', {reports, title: 'crash reports'})
             //.state('authorization', auth, opts)
         //})
